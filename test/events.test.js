@@ -17,6 +17,10 @@ describe('.fetched property', function() {
     });
   });
 
+  after(function(done) {
+    helpers.clearNamespaces('disk', ['Users'], done);
+  });
+
   it('should not be `fetched` before running .fetch()', function() {
     assert.equal(user.fetched, false);
   });
@@ -27,5 +31,22 @@ describe('.fetched property', function() {
       done();
     });
     user.fetch();
+  });
+
+  it('should set `fetched` to false during .save()', function(done) {
+    user.fetched = true;
+    var numChanged = 0;
+    user.on('change:fetched', function() {
+      numChanged ++;
+    });
+    user.save({
+      email: 'commander@galactica.com'
+    }, {
+      success: function() {
+        assert.equal(numChanged, 2);
+        done();
+      },
+      error: done
+    });
   });
 });
