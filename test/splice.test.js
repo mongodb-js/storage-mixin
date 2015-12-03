@@ -210,13 +210,18 @@ describe('storage backend `splice`', function() {
       users.once('sync', function() {
         debug('fetch collections', users.serialize());
         assert.equal(users.length, 1);
-        assert.equal(users.at(0).password, helpers.keytarAvailable ? 'cyl0nHunt3r' : '');
+        if (helpers.keytarAvailable) {
+          assert.equal(users.at(0).password, helpers.keytarAvailable ? 'cyl0nHunt3r' : '');
+        }
         done();
       });
       users.fetch();
     });
 
     it('should work with custom collection sort orders', function(done) {
+      if (!helpers.keytarAvailable) {
+        this.skip();
+      }
       var SortedUsers = helpers.Users.extend(storageMixin, {
         model: StorableUser,
         storage: backendOptions,
