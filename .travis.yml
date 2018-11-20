@@ -19,3 +19,5 @@ addons:
       - libstdc++6
 script: 
   - npm test
+env:
+  - CC=clang CXX=clang++ npm_config_clang=1
