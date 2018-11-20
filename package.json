@@ -27,7 +27,7 @@
     "ampersand.js"
   ],
   "scripts": {
-    "test": "electron-rebuild && xvfb-maybe electron-mocha --renderer",
+    "test": "electron-rebuild && xvfb-maybe electron-mocha",
     "check": "mongodb-js-precommit"
   },
   "dependencies": {
