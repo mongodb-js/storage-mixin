@@ -1,8 +1,8 @@
+sudo: false
+dist: trusty
 language: node_js
 node_js:
-  - 10
-env:
-  - CXX=g++-4.8
+  - 10.2.1
 before_install:
   - npm install -g npm@latest
 before_script:
