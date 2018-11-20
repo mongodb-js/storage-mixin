@@ -2,15 +2,7 @@ var backends = require('../lib/backends');
 var Model = require('ampersand-model');
 var Collection = require('ampersand-rest-collection');
 var async = require('async');
-var keytar;
-try {
-  /* eslint no-undef: 0 */
-  keytar = window.require('keytar');
-} catch (e) {
-  keytar = null;
-}
-
-var debug = require('debug')('storage-mixin:test:helpers');
+var debug = require('debug')('mongodb-storage-mixin:test:helpers');
 
 /**
  * Helper to clear all given namespaces for a backend.
@@ -19,37 +11,18 @@ var debug = require('debug')('storage-mixin:test:helpers');
  * @param  {Function} done          errback
  */
 var clearNamespaces = function(backendName, namespaces, done) {
+  debug('Clearing namespaces for backend %s', backendName, namespaces);
   var tasks = namespaces.map(function(namespace) {
-    return backends[backendName].clear.bind(null, namespace);
+    var backend = backends[backendName];
+    return function(cb) {
+      backend.clear(`storage-mixin/${namespace}`, cb);
+    };
   });
-  async.parallel(tasks, done);
+  async.parallel(tasks, function(err, res) {
+    debug('Namespaces cleared for backend %s', backendName);
+    done(err, res);
+  });
 };
-
-/**
- * Monkey-patch the secure clear method for testing because keytar doesn't
- * suport clearing the entire namespace automatically. Deletes all keys
- * that are used in the tests.
- *
- * @param {String}   namespace    namespace to clear
- * @param {Function} done         callback
- */
-if (keytar) {
-  backends.secure.clear = function(namespace, done) {
-    debug('monkey patched clear.');
-    var prefix = 'storage-mixin/';
-    if (namespace === 'Spaceships') {
-      keytar.deletePassword(prefix + 'Spaceships', 'Heart of Gold');
-      keytar.deletePassword(prefix + 'Spaceships', 'Serenity');
-      keytar.deletePassword(prefix + 'Spaceships', 'Battlestar Galactica');
-    } else if (namespace === 'Planets') {
-      keytar.deletePassword(prefix + 'Planets', 'Earth');
-    } else if (namespace === 'Users') {
-      keytar.deletePassword(prefix + 'Users', 'apollo');
-      keytar.deletePassword(prefix + 'Users', 'starbuck');
-    }
-    done();
-  };
-}
 
 var Spaceship = Model.extend({
   idAttribute: 'name',
