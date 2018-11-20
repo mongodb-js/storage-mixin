@@ -27,7 +27,7 @@
     "ampersand.js"
   ],
   "scripts": {
-    "test": "electron-rebuild && electron-mocha --renderer",
+    "test": "electron-rebuild && xvfb-maybe electron-mocha --renderer",
     "check": "mongodb-js-precommit"
   },
   "dependencies": {
@@ -47,6 +47,7 @@
     "electron-mocha": "^6.0.4",
     "electron-rebuild": "^1.8.2",
     "eslint-config-mongodb-js": "^3.0.1",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "xvfb-maybe": "^0.2.1"
   }
 }
