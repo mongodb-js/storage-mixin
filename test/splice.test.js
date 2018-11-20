@@ -6,7 +6,7 @@ var assert = require('assert');
 var async = require('async');
 var debug = require('debug')('storage-mixin:splice:test');
 
-describe('storage backend `splice`', function() {
+describe('storage backend splice', function() {
   var backendOptions = {
     backend: 'splice',
     secureCondition: function(val, key) {

@@ -103,7 +103,12 @@ describe('storage backend secure', function() {
     if (SecureBackend.isNullBackend) {
       this.skip();
     }
-    var keytar = require('keytar');
+    try {
+      var keytar = require('keytar');
+    } catch (e) {
+      console.error('Could not require keytar', e);
+    }
+    
     helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], function(err) {
       if (err) {
         done(err);
@@ -118,7 +123,10 @@ describe('storage backend secure', function() {
           return keytar
             .findPassword('storage-mixin/Planets')
             .then(function(rawJsonString) {
-              assert.strictEqual(rawJsonString, '{"name":"Earth","population":7000000000}');
+              assert.strictEqual(
+                rawJsonString,
+                '{"name":"Earth","population":7000000000}'
+              );
               done();
             })
             .catch(done);
