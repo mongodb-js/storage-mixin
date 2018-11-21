@@ -12,6 +12,7 @@ addons:
     packages:
       - xvfb
       - libsecret-1-dev
+      - libdbus-1
       - gnome-keyring
       - libstdc++6
       - python-gnomekeyring
