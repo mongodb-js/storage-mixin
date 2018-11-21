@@ -37,14 +37,14 @@ describe('storage backend secure', function() {
   //   helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
   // });
 
-  after(function(done) {
-    fleet = new StorableFleet();
-    fleet.once('sync', function() {
-      assert.equal(fleet.length, 0);
-      done();
-    });
-    fleet.fetch();
-  });
+  // after(function(done) {
+  //   fleet = new StorableFleet();
+  //   fleet.once('sync', function() {
+  //     assert.equal(fleet.length, 0);
+  //     done();
+  //   });
+  //   fleet.fetch();
+  // });
 
   beforeEach(function() {
     // instantiate a model of the storable class
