@@ -27,7 +27,9 @@
     "ampersand.js"
   ],
   "scripts": {
-    "test": "electron-rebuild --force && electron-mocha --renderer",
+    "testrenderer": "electron-rebuild --force && electron-mocha --renderer",
+    "test": "(electron-rebuild --force && electron-mocha) || npm run testrenderer || npm run testmocha",
+    "testmocha": "node-gyp && electron-mocha",
     "check": "mongodb-js-precommit"
   },
   "dependencies": {

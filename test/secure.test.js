@@ -1,9 +1,6 @@
 var storageMixin = require('../lib');
-var SecureBackend = require('../lib/backends').secure;
 var assert = require('assert');
 var helpers = require('./helpers');
-
-// var debug = require('debug')('storage-mixin:test');
 
 describe('storage backend secure', function() {
   var backendOptions = 'secure';
@@ -14,7 +11,9 @@ describe('storage backend secure', function() {
   var spaceship;
   var fleet;
 
-  // create storable classes with this backend
+  /**
+   * Create storable classes with this backend 
+   */
   StorableSpaceship = helpers.Spaceship.extend(storageMixin, {
     storage: backendOptions
   });
@@ -28,23 +27,25 @@ describe('storage backend secure', function() {
     storage: backendOptions
   });
 
-  // clear namespaces of this backend before and after the tests
-  // before(function(done) {
-  //   helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
-  // });
+  /**
+   * Clear namespaces of this backend before and after the tests.
+   */
+  before(function(done) {
+    helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
+  });
 
-  // after(function(done) {
-  //   helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
-  // });
+  after(function(done) {
+    helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
+  });
 
-  // after(function(done) {
-  //   fleet = new StorableFleet();
-  //   fleet.once('sync', function() {
-  //     assert.equal(fleet.length, 0);
-  //     done();
-  //   });
-  //   fleet.fetch();
-  // });
+  after(function(done) {
+    fleet = new StorableFleet();
+    fleet.once('sync', function() {
+      assert.equal(fleet.length, 0);
+      done();
+    });
+    fleet.fetch();
+  });
 
   beforeEach(function() {
     // instantiate a model of the storable class
