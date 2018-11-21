@@ -29,13 +29,13 @@ describe('storage backend secure', function() {
   });
 
   // clear namespaces of this backend before and after the tests
-  before(function(done) {
-    helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
-  });
+  // before(function(done) {
+  //   helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
+  // });
 
-  after(function(done) {
-    helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
-  });
+  // after(function(done) {
+  //   helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
+  // });
 
   after(function(done) {
     fleet = new StorableFleet();
