@@ -20,7 +20,5 @@ env:
   - CC=clang CXX=clang++ npm_config_clang=1
 before_script:
   - |
-    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      dbus-launch /usr/bin/python -c \
-        "import gnomekeyring;gnomekeyring.create_sync('login', '');"
-    fi
+    dbus-launch /usr/bin/python -c \
+      "import gnomekeyring;gnomekeyring.create_sync('login', '');"
