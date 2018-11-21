@@ -1,3 +1,8 @@
+const { app } = require('electron');
+app.commandLine.appendSwitch('load-media-router-component-extension', '0');
+app.commandLine.appendSwitch('media-router', '0');
+
+
 var storageMixin = require('../lib');
 var assert = require('assert');
 var helpers = require('./helpers');
@@ -12,7 +17,7 @@ describe('storage backend secure', function() {
   var fleet;
 
   /**
-   * Create storable classes with this backend 
+   * Create storable classes with this backend
    */
   StorableSpaceship = helpers.Spaceship.extend(storageMixin, {
     storage: backendOptions

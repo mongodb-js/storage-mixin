@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "pretest": "electron-rebuild --force --only keytar",
-    "test": "electron-mocha --renderer",
+    "test": "electron-mocha test/secure.js",
     "check": "mongodb-js-precommit"
   },
   "dependencies": {
