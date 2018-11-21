@@ -19,7 +19,7 @@ addons:
 script: 
   - xvfb-run ./scripts/ci.sh
 env:
-  - CC=clang CXX=clang++ npm_config_clang=1 DEBUG=*
+  - CC=clang CXX=clang++ npm_config_clang=1
 before_script:
   - |
     dbus-launch /usr/bin/python -c \
