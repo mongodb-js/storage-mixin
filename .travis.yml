@@ -13,7 +13,14 @@ addons:
       - libsecret-1-dev
       - gnome-keyring
       - libstdc++6
+      - python-gnomekeyring
 script: 
-  - npm test
+  - xvfb-run ./scripts/ci.sh
 env:
   - CC=clang CXX=clang++ npm_config_clang=1
+before_script:
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      dbus-launch /usr/bin/python -c \
+        "import gnomekeyring;gnomekeyring.create_sync('login', '');"
+    fi

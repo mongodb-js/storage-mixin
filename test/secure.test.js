@@ -100,15 +100,7 @@ describe('storage backend secure', function() {
   });
 
   it('should use the correct appName/namespace key for the native credential entry', function(done) {
-    if (SecureBackend.isNullBackend) {
-      this.skip();
-    }
-    try {
-      var keytar = require('keytar');
-    } catch (e) {
-      console.error('Could not require keytar', e);
-    }
-    
+    var keytar = require('keytar');
     helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], function(err) {
       if (err) {
         done(err);
