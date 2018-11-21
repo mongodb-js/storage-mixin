@@ -15,7 +15,7 @@ var clearNamespaces = function(backendName, namespaces, done) {
   var tasks = namespaces.map(function(namespace) {
     var backend = backends[backendName];
     return function(cb) {
-      backend.clear(`storage-mixin/${namespace}`, cb);
+      backend.clear(namespace, cb);
     };
   });
   async.parallel(tasks, function(err, res) {
