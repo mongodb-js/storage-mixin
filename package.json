@@ -27,9 +27,10 @@
     "ampersand.js"
   ],
   "scripts": {
-    "  _pretest": "electron-rebuild --force --only keytar",
-    "  _test": "electron-mocha test/secure.js",
-    "test": "mocha ./test/secure.test.js",
+    "pretest": "electron-rebuild --force --only keytar",
+    "test": "electron-mocha test/secure.js",
+    "pretest:node": "node-gyp rebuild --directory node_modules/keytar/ --verbose",
+    "test:node": "mocha ./test/secure.test.js",
     "check": "mongodb-js-precommit"
   },
   "dependencies": {
