@@ -16,6 +16,7 @@ addons:
       - gnome-keyring
       - libstdc++6
       - python-gnomekeyring
+      - libnss3
 script: 
   - xvfb-run ./scripts/ci.sh
 env:
