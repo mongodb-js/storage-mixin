@@ -27,7 +27,7 @@
     "ampersand.js"
   ],
   "scripts": {
-    "pretest": "electron-rebuild --force --only keytar",
+    "pretest": "cross-env DEBUG=* electron-rebuild --force --debug --only keytar",
     "test": "electron-mocha test/secure.js",
     "pretest:node": "node-gyp rebuild --directory node_modules/keytar/ --verbose",
     "test:node": "mocha ./test/secure.test.js",
@@ -46,6 +46,7 @@
     "write-file-atomic": "^1.1.4"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "electron": "^3.0.0",
     "electron-mocha": "^6.0.4",
     "electron-rebuild": "^1.8.2",
