@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "pretest": "cross-env DEBUG=* electron-rebuild --force --debug --only keytar",
-    "test": "electron-mocha test/secure.js",
+    "test": "electron-mocha test/secure.test.js",
     "pretest:node": "node-gyp rebuild --directory node_modules/keytar/ --verbose",
     "test:node": "mocha ./test/secure.test.js",
     "check": "mongodb-js-precommit"
