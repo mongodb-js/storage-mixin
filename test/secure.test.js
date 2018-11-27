@@ -1,8 +1,3 @@
-const { app } = require('electron');
-app.commandLine.appendSwitch('load-media-router-component-extension', '0');
-app.commandLine.appendSwitch('media-router', '0');
-
-
 var storageMixin = require('../lib');
 var assert = require('assert');
 var helpers = require('./helpers');
