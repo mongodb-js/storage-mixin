@@ -1,8 +1,10 @@
   #!/bin/bash
 
-  echo "Unlocking the keyring..."
-  eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login)
-  eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start)
-  export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
+echo "Unlocking the keyring..."
+eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login)
+eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start)
+export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
 
-  npm test
+which dbus-run
+
+dbus-run npm test
