@@ -5,6 +5,6 @@ eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login)
 eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start)
 export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
 
-which dbus-run
+which dbus-launch
 
-dbus-run npm test
+dbus-launch npm test
