@@ -18,7 +18,7 @@ addons:
       - python-gnomekeyring
       - libnss3
 script: 
-  - xvfb-run ./scripts/ci.sh
+  - bash ./scripts/ci.sh
 env:
   - CC=clang CXX=clang++ npm_config_clang=1
 before_script:
