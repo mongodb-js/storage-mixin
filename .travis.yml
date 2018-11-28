@@ -3,6 +3,12 @@ sudo: required
 language: node_js
 node_js:
   - 10.2.1
+env:
+  global:
+    - NO_AT_BRIDGE=1
+    - CC=clang CXX=clang++ npm_config_clang=1
+
+
 before_install:
   - npm i -g npm@latest
 addons:
@@ -10,18 +16,16 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - xvfb
-      - libsecret-1-dev
-      - libdbus-1-dev
       - gnome-keyring
-      - libstdc++6
+      - libgnome-keyring-dev
+      - libsecret-1-dev
       - python-gnomekeyring
-      - libnss3
-script: 
-  - bash ./scripts/ci.sh
-env:
-  - CC=clang CXX=clang++ npm_config_clang=1
 before_script:
   - |
-    dbus-launch /usr/bin/python -c \
-      "import gnomekeyring;gnomekeyring.create_sync('login', '');"
+    export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start; sleep 3;
+    eval $(dbus-launch --sh-syntax);
+    eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login);
+    eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start);
+    /usr/bin/python -c "import gnomekeyring;gnomekeyring.create_sync('login', '');";
+script: 
+  - npm test

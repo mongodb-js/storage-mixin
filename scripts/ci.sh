@@ -1,5 +1,6 @@
   #!/bin/bash
 
+
 echo "Unlocking the keyring..."
 eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login)
 eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start)
