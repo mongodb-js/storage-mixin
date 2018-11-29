@@ -27,11 +27,12 @@
     "ampersand.js"
   ],
   "scripts": {
-    "pretest": "cross-env DEBUG=* electron-rebuild --force --debug --only keytar",
-    "test": "electron-mocha test/secure.test.js",
+    "pretest:electron": "electron-rebuild --force --only keytar",
+    "test:electron": "electron-mocha test/secure.test.js",
     "pretest:node": "node-gyp rebuild --directory node_modules/keytar/ --verbose",
     "test:node": "mocha ./test/secure.test.js",
-    "check": "mongodb-js-precommit"
+    "check": "mongodb-js-precommit",
+    "test": "npm run test:node && npm run test:electron"
   },
   "dependencies": {
     "ampersand-model": "^6.0.2",
@@ -46,12 +47,10 @@
     "write-file-atomic": "^1.1.4"
   },
   "devDependencies": {
-    "cross-env": "^5.2.0",
     "electron": "^3.0.0",
     "electron-mocha": "^6.0.4",
     "electron-rebuild": "^1.8.2",
     "eslint-config-mongodb-js": "^3.0.1",
-    "mocha": "^5.2.0",
-    "xvfb-maybe": "^0.2.1"
+    "mocha": "^5.2.0"
   }
 }
