@@ -28,9 +28,9 @@
   ],
   "scripts": {
     "pretest:electron": "electron-rebuild --force --only keytar",
-    "test:electron": "electron-mocha test/secure.test.js",
+    "test:electron": "electron-mocha --renderer",
     "pretest:node": "node-gyp rebuild --directory node_modules/keytar/ --verbose",
-    "test:node": "mocha ./test/secure.test.js",
+    "test:node": "mocha",
     "check": "mongodb-js-precommit",
     "test": "npm run test:node && npm run test:electron"
   },

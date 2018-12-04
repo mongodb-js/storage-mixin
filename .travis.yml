@@ -11,17 +11,17 @@ env:
     - CXX=clang++ 
     - npm_config_clang=1
 
-matrix:
-  include:
-    - env: NODE=1
-    - env: ELECTRON=1
-  fast_finish: true
+# matrix:
+#   include:
+#     - env: NODE=1
+#     - env: ELECTRON=1
+#   fast_finish: true
 
 before_install:
   - npm i -g npm@latest
 
 install:
-  - npm ci
+  - npm install
 
 before_script:
   - |
@@ -31,8 +31,9 @@ before_script:
     eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start);
     /usr/bin/python -c "import gnomekeyring;gnomekeyring.create_sync('login', '');";
 script:
-  - if [ -n "$NODE" ]; then npm run test:node; fi
-  - if [ -n "$ELECTRON" ]; then npm run test:electron; fi
+  - npm run test:electron
+  # - if [ -n "$NODE" ]; then npm run test:node; fi
+  # - if [ -n "$ELECTRON" ]; then npm run test:electron; fi
 
 addons:
   apt:
@@ -43,5 +44,4 @@ addons:
       # TODO (@imlucas) Are all of these gnome keyring 
       # packages really needed?
       - gnome-keyring
-      - libgnome-keyring-dev
       - python-gnomekeyring
