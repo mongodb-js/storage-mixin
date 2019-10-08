@@ -125,7 +125,7 @@ describe('storage backend splice', function() {
 
   it('should create a new model in a collection', function(done) {
     if (LocalBackend.isNullBackend) {
-      this.skip();
+      return this.skip();
     }
     fleet.once('sync', function() {
       done();
@@ -138,10 +138,11 @@ describe('storage backend splice', function() {
 
   it('should remove correctly', function(done) {
     if (LocalBackend.isNullBackend) {
-      this.skip();
+      return this.skip();
     }
     spaceship.destroy({
       success: function() {
+        console.log('FETCHING');
         fleet.once('sync', function() {
           assert.equal(fleet.length, 2);
           done();

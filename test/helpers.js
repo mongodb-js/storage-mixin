@@ -91,11 +91,25 @@ var Users = Collection.extend({
   model: User
 });
 
+var Empty = Model.extend({
+  idAttribute: 'name',
+  namespace: 'emptyNamespace',
+  props: {
+    name: {
+      type: 'string'
+    }
+  },
+  serialize: function() {
+    return {};
+  }
+});
+
 module.exports = {
   clearNamespaces: clearNamespaces,
   Spaceship: Spaceship,
   Fleet: Fleet,
   Planet: Planet,
   User: User,
-  Users: Users
+  Users: Users,
+  Empty: Empty
 };

@@ -49,15 +49,25 @@ describe('storage backend splice-disk', function() {
 
   // clear namespaces of this backend before and after the tests
   before(function(done) {
-    helpers.clearNamespaces('splice-disk', ['Spaceships', 'Planets', 'Users'], done);
+    helpers.clearNamespaces(
+      'splice-disk',
+      ['Spaceships', 'Planets', 'Users'],
+      done
+    );
   });
 
   after(function(done) {
-    helpers.clearNamespaces('splice-disk', ['Spaceships', 'Planets', 'Users'], done);
+    helpers.clearNamespaces(
+      'splice-disk',
+      ['Spaceships', 'Planets', 'Users'],
+      done
+    );
   });
 
   after(function(done) {
-    async.some(['./Planets', './Spaceships', './Users'], fs.exists, function(result) {
+    async.some(['./Planets', './Spaceships', './Users'], fs.exists, function(
+      result
+    ) {
       // if result is true then at least one of the files exists
       if (result) {
         return done(new Error('orphaned files left after tests.'));
@@ -137,7 +147,7 @@ describe('storage backend splice-disk', function() {
 
   it('should create a new model in a collection', function(done) {
     if (SpliceDiskBackend.isNullBackend) {
-      this.skip();
+      return this.skip();
     }
     fleet.once('sync', function() {
       done();
@@ -150,15 +160,18 @@ describe('storage backend splice-disk', function() {
 
   it('should remove correctly', function(done) {
     if (SpliceDiskBackend.isNullBackend) {
-      this.skip();
+      return this.skip();
     }
     spaceship.destroy({
       success: function() {
-        fleet.once('sync', function() {
-          assert.equal(fleet.length, 2);
-          done();
+        console.trace('fetch');
+        fleet.fetch({
+          success: function() {
+            assert.equal(fleet.length, 2);
+            done();
+          },
+          error: done
         });
-        fleet.fetch();
       },
       error: done
     });
@@ -177,7 +190,7 @@ describe('storage backend splice-disk', function() {
 
     it('should split and combine a model correctly', function(done) {
       if (SpliceDiskBackend.isNullBackend) {
-        this.skip();
+        return this.skip();
       }
       user.save(
         { password: 'foobar' },
@@ -199,7 +212,7 @@ describe('storage backend splice-disk', function() {
 
     it('should not store the password in `disk` backend', function(done) {
       if (SpliceDiskBackend.isNullBackend) {
-        this.skip();
+        return this.skip();
       }
 
       user.save(
@@ -228,7 +241,7 @@ describe('storage backend splice-disk', function() {
 
     it('should only store the password in `secure` backend', function(done) {
       if (SpliceDiskBackend.isNullBackend) {
-        this.skip();
+        return this.skip();
       }
       user.save(
         null,
@@ -256,7 +269,7 @@ describe('storage backend splice-disk', function() {
 
     it('should fetch collections', function(done) {
       if (SpliceDiskBackend.isNullBackend) {
-        this.skip();
+        return this.skip();
       }
       var users = new StorableUsers();
       users.once('sync', function() {

@@ -10,6 +10,7 @@ describe('storage backend secure', function() {
   var StorablePlanet;
   var spaceship;
   var fleet;
+  var EmptyModel;
 
   /**
    * Create storable classes with this backend
@@ -27,15 +28,27 @@ describe('storage backend secure', function() {
     storage: backendOptions
   });
 
+  EmptyModel = helpers.Empty.extend(storageMixin, {
+    storage: backendOptions
+  });
+
   /**
    * Clear namespaces of this backend before and after the tests.
    */
   before(function(done) {
-    helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
+    helpers.clearNamespaces(
+      'secure',
+      ['Spaceships', 'Planets', 'emptyNamespace'],
+      done
+    );
   });
 
   after(function(done) {
-    helpers.clearNamespaces('secure', ['Spaceships', 'Planets'], done);
+    helpers.clearNamespaces(
+      'secure',
+      ['Spaceships', 'Planets', 'emptyNamespace'],
+      done
+    );
   });
 
   after(function(done) {
@@ -132,4 +145,24 @@ describe('storage backend secure', function() {
   it.skip('should create a new model in a collection');
   it.skip('should fetch collections');
   it.skip('should remove correctly');
+
+  it('should not persist empty objects', function(done) {
+    var empty = new EmptyModel({ name: 'the void' });
+    assert.deepEqual(empty.serialize(), {});
+    empty.save(null, {
+      success: function() {
+        var keytar = require('keytar');
+        return keytar
+          .findPassword('storage-mixin/Empty')
+          .then(function(rawJsonString) {
+            if (!rawJsonString) {
+              return done();
+            }
+            assert.notEqual(rawJsonString, '');
+            assert.notEqual(rawJsonString, '{}');
+            done();
+          });
+      }
+    });
+  });
 });
