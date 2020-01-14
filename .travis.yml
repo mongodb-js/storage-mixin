@@ -25,7 +25,8 @@ before_script:
     eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start);
     /usr/bin/python -c "import gnomekeyring;gnomekeyring.create_sync('login', '');";
 script:
-  - npm run ci
+  - npm run check
+  - npm run test:node
   # - if [ -n "$NODE" ]; then npm run test:node; fi
   # - if [ -n "$ELECTRON" ]; then npm run test:electron; fi
 
