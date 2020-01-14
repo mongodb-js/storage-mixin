@@ -1,7 +1,5 @@
 var storageMixin = require('../lib');
 var assert = require('assert');
-var async = require('async');
-var fs = require('fs');
 var helpers = require('./helpers');
 
 // var debug = require('debug')('storage-mixin:test');

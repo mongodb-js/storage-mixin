@@ -3,7 +3,6 @@ var SecureBackend = require('../lib/backends').secure;
 var SpliceDiskBackend = require('../lib/backends')['splice-disk'];
 var wrapErrback = require('../lib/backends/errback').wrapErrback;
 var helpers = require('./helpers');
-var fs = require('fs');
 var assert = require('assert');
 var async = require('async');
 var debug = require('debug')('storage-mixin:splice:test');
