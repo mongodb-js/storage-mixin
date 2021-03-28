@@ -41,7 +41,7 @@
     "async": "^3.1.0",
     "debug": "^4.1.1",
     "hadron-ipc": "^1.1.0",
-    "keytar": "^5.0.0",
+    "keytar": "^7.6.0",
     "localforage": "^1.7.3",
     "lodash": "^4.17.15",
     "rimraf": "^3.0.0",
